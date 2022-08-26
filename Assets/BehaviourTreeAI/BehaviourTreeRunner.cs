@@ -10,45 +10,45 @@ namespace BehaviourTreeAI
         // Start is called before the first frame update
         void Start()
         {
-            behaviourTree = ScriptableObject.CreateInstance<BehaviourTree>();
+            //behaviourTree = ScriptableObject.CreateInstance<BehaviourTree>();
 
-            var repeat1 = ScriptableObject.CreateInstance<RepeatNode>();
+            //var repeat1 = ScriptableObject.CreateInstance<RepeatNode>();
 
-            var log1 = ScriptableObject.CreateInstance<DebugLogNode>();
+            //var log1 = ScriptableObject.CreateInstance<DebugLogNode>();
 
-            log1.Message = "Log1";
+            //log1.Message = "Log1";
 
-            var log2 = ScriptableObject.CreateInstance<DebugLogNode>();
+            //var log2 = ScriptableObject.CreateInstance<DebugLogNode>();
 
-            log2.Message = "Log2";
+            //log2.Message = "Log2";
 
-            var log3 = ScriptableObject.CreateInstance<DebugLogNode>();
+            //var log3 = ScriptableObject.CreateInstance<DebugLogNode>();
 
-            log3.Message = "Log3";
+            //log3.Message = "Log3";
 
-            var wait1 = ScriptableObject.CreateInstance<WaitNode>();
-            wait1.Duration = 2;
+            //var wait1 = ScriptableObject.CreateInstance<WaitNode>();
+            //wait1.Duration = 2;
 
-            var wait2 = ScriptableObject.CreateInstance<WaitNode>();
-            wait2.Duration = 2;
+            //var wait2 = ScriptableObject.CreateInstance<WaitNode>();
+            //wait2.Duration = 2;
 
-            var wait3 = ScriptableObject.CreateInstance<WaitNode>();
-            wait3.Duration = 2;
+            //var wait3 = ScriptableObject.CreateInstance<WaitNode>();
+            //wait3.Duration = 2;
 
-            var sequencer = ScriptableObject.CreateInstance<SequencerNode>();
+            //var sequencer = ScriptableObject.CreateInstance<SequencerNode>();
 
-            sequencer.Children = new List<Node>() {
-                wait1,
-                log1,
-                wait2,
-                log2,
-                wait3,
-                log3,
-            };
+            //sequencer.Children = new List<Node>() {
+            //    wait1,
+            //    log1,
+            //    wait2,
+            //    log2,
+            //    wait3,
+            //    log3,
+            //};
 
-            repeat1.Child = sequencer;
+            //repeat1.Child = sequencer;
 
-            behaviourTree.RootNode = repeat1;
+            //behaviourTree.RootNode = repeat1;
         }
 
         // Update is called once per frame

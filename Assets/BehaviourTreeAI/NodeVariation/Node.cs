@@ -13,6 +13,10 @@ namespace BehaviourTreeAI
             Failure,
         }
 
+        public string Guid;
+
+        public Vector2 GraphPosition;
+
         State _nodeState = State.Running;
 
         bool _isStart = false;

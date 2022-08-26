@@ -1,5 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <BehaviourTreeView focusable="true" style="flex-grow: 1;">
+    <SplitView style="flex-direction: row-reverse; flex-grow: 1; justify-content: center;">
         <Style src="BehaviourTreeEditor.uss" />
-    </BehaviourTreeView>
+        <ui:VisualElement name="LeftPanel" style="flex-grow: 1;">
+            <BehaviourTreeAI.BehaviourTreeView focusable="true" style="flex-grow: 1; flex-basis: 0; flex-direction: row-reverse;">
+                <ui:Label text="Graph View" />
+            </BehaviourTreeAI.BehaviourTreeView>
+        </ui:VisualElement>
+        <ui:VisualElement name="RightPanel" style="flex-grow: 0; flex-basis: 250px;">
+            <InspectorView style="flex-grow: 1;">
+                <ui:Label text="Inspector" />
+            </InspectorView>
+        </ui:VisualElement>
+    </SplitView>
 </ui:UXML>
