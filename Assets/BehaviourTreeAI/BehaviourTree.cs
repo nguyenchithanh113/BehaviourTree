@@ -6,7 +6,7 @@ using UnityEditor;
 namespace BehaviourTreeAI
 {
     [CreateAssetMenu()]
-    public class BehaviourTree : MonoBehaviour
+    public class BehaviourTree : ScriptableObject
     {
         public Node RootNode;
 
@@ -48,6 +48,54 @@ namespace BehaviourTreeAI
             AssetDatabase.RemoveObjectFromAsset(node);
 
             AssetDatabase.SaveAssets();
+        }
+        public void AddChild(Node parent, Node child)
+        {
+            if(parent is ActionNode)
+            {
+
+            }else if(parent is CompositeNode cn && child!=null)
+            {
+                cn.Children.Add(child);
+            }else if(parent is DecoratorNode dn && child!=null)
+            {
+                dn.Child = child;
+            }
+        }
+        public void RemoveChild(Node parent, Node child)
+        {
+            if (parent is ActionNode)
+            {
+
+            }
+            else if (parent is CompositeNode cn && child != null)
+            {
+                cn.Children.Remove(child);
+            }
+            else if (parent is DecoratorNode dn && child != null)
+            {
+                dn.Child = null;
+            }
+        }
+        public List<Node> GetChildrent(Node parent)
+        {
+            List<Node> children = new List<Node>();
+            if (parent is ActionNode)
+            {
+
+            }
+            else if (parent is CompositeNode cn)
+            {
+                return cn.Children;
+            }
+            else if (parent is DecoratorNode dn)
+            {
+                if (dn.Child != null)
+                {
+                    children.Add(dn.Child);
+                }
+            }
+            return children;
         }
     }
 }

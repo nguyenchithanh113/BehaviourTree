@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using System.Linq;
 
 namespace BehaviourTreeAI
 {
@@ -23,6 +24,10 @@ namespace BehaviourTreeAI
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/BehaviourTreeAI/Editor/BehaviourTreeEditor.uss");
             this.styleSheets.Add(styleSheet);
         }
+        NodeView FindNodeView(Node node)
+        {
+            return GetNodeByGuid(node.Guid) as NodeView;
+        }
         internal void PopulateView(BehaviourTree behaviourTree)
         {
             _behaviourTree = behaviourTree;
@@ -36,8 +41,19 @@ namespace BehaviourTreeAI
             graphViewChanged += OnGraphViewChange;
 
             behaviourTree.TreeNodes.ForEach((_node) => CreateNodeView(_node));
-        }
 
+            behaviourTree.TreeNodes.ForEach((currentNode) =>
+            {
+                List<Node> childNode = behaviourTree.GetChildrent(currentNode);
+                NodeView parentView = FindNodeView(currentNode);
+                foreach (Node child in childNode)
+                {
+                    NodeView childView = FindNodeView(child);
+                    Edge edge = parentView.OutputPort.ConnectTo(childView.InputPort);
+                    AddElement(edge);
+                }
+            });
+        }
         private GraphViewChange OnGraphViewChange(GraphViewChange graphViewChange)
         {
             if (graphViewChange.elementsToRemove != null)
@@ -48,6 +64,25 @@ namespace BehaviourTreeAI
                     if (nodeView!=null)
                     {
                         _behaviourTree.RemoveNode(nodeView.Node);
+                    }
+                    Edge edge = elem as Edge;
+                    if(edge != null)
+                    {
+                        NodeView parentNode = edge.output.node as NodeView;
+                        NodeView childNode = edge.input.node as NodeView;
+                        _behaviourTree.RemoveChild(parentNode.Node, childNode.Node);
+                    }
+                });
+            }
+            if(graphViewChange.edgesToCreate != null)
+            {
+                graphViewChange.edgesToCreate.ForEach((edge) =>
+                {
+                    if (edge != null)
+                    {
+                        NodeView parentNode = edge.output.node as NodeView;
+                        NodeView childNode = edge.input.node as NodeView;
+                        _behaviourTree.AddChild(parentNode.Node, childNode.Node);
                     }
                 });
             }
@@ -84,6 +119,12 @@ namespace BehaviourTreeAI
                 evt.menu.AppendAction($"[{type.BaseType.Name}]{type.Name}", (e) => { OnCreateNode(type); });
             }
 
+        }
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+        {
+            return ports.ToList().Where(endport =>
+                endport.direction != startPort.direction && endport.node != startPort.node
+            ).ToList(); ;
         }
     }
 }
