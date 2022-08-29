@@ -28,6 +28,7 @@ namespace BehaviourTreeAI
         {
             return GetNodeByGuid(node.Guid) as NodeView;
         }
+        
         internal void PopulateView(BehaviourTree behaviourTree)
         {
             _behaviourTree = behaviourTree;
@@ -40,11 +41,17 @@ namespace BehaviourTreeAI
             DeleteElements(lstGraphElements);
             graphViewChanged += OnGraphViewChange;
 
+            if (behaviourTree.RootNode == null)
+            {
+                behaviourTree.RootNode = behaviourTree.CreateNode(typeof(RootNode)) as RootNode;
+                EditorUtility.SetDirty(behaviourTree);
+            }
+
             behaviourTree.TreeNodes.ForEach((_node) => CreateNodeView(_node));
 
             behaviourTree.TreeNodes.ForEach((currentNode) =>
             {
-                List<Node> childNode = behaviourTree.GetChildrent(currentNode);
+                List<Node> childNode = behaviourTree.GetChildren(currentNode);
                 NodeView parentView = FindNodeView(currentNode);
                 foreach (Node child in childNode)
                 {
@@ -72,6 +79,7 @@ namespace BehaviourTreeAI
                         NodeView childNode = edge.input.node as NodeView;
                         _behaviourTree.RemoveChild(parentNode.Node, childNode.Node);
                     }
+                    EditorUtility.SetDirty(_behaviourTree);
                 });
             }
             if(graphViewChange.edgesToCreate != null)
@@ -83,12 +91,37 @@ namespace BehaviourTreeAI
                         NodeView parentNode = edge.output.node as NodeView;
                         NodeView childNode = edge.input.node as NodeView;
                         _behaviourTree.AddChild(parentNode.Node, childNode.Node);
+                        OnAddChild(parentNode.Node);
+                        EditorUtility.SetDirty(_behaviourTree);
                     }
                 });
             }
             return graphViewChange;
         }
+        void OnAddChild(Node parent)
+        {
+            if(parent is SequencerNode pr)
+            {
+                List<Node> children = _behaviourTree.GetChildren(pr);
+                if(children.Count > 1)
+                {
+                    for(int i = 1; i < children.Count; i++)
+                    {
+                        NodeView preNode = FindNodeView(children[i-1]);
+                        NodeView curNode = FindNodeView(children[i]);
 
+                        float preX = preNode.Node.GraphPosition.x;
+                        float curX = curNode.Node.GraphPosition.x;
+                        if(preX >= curX)
+                        {
+                            preX = curX - (preNode.GetPosition().width);
+                            children[i - 1].GraphPosition = new Vector2(preX,children[i - 1].GraphPosition.y);
+                            preNode.SetGraphPosition(children[i - 1].GraphPosition);
+                        }
+                    }
+                }
+            }
+        }
         void OnCreateNode(System.Type type)
         {
             Node node = _behaviourTree.CreateNode(type);

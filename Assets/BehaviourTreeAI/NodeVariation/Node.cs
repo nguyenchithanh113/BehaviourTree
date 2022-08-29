@@ -46,5 +46,10 @@ namespace BehaviourTreeAI
         protected abstract void OnStop();
 
         protected abstract State OnUpdate();
+
+        public virtual Node Clone()
+        {
+            return Instantiate(this);
+        }
     }
 }

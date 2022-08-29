@@ -12,7 +12,9 @@ namespace BehaviourTreeAI
 
         Node.State _treeState = Node.State.Running;
 
+#if UNITY_EDITOR
         public List<Node> TreeNodes = new List<Node>();
+#endif
 
         public Vector2 GraphPosition;
 
@@ -60,6 +62,9 @@ namespace BehaviourTreeAI
             }else if(parent is DecoratorNode dn && child!=null)
             {
                 dn.Child = child;
+            }else if(parent is RootNode rn && child != null)
+            {
+                rn.Child = child;
             }
         }
         public void RemoveChild(Node parent, Node child)
@@ -76,8 +81,12 @@ namespace BehaviourTreeAI
             {
                 dn.Child = null;
             }
+            else if (parent is RootNode rn && child != null)
+            {
+                rn.Child = null;
+            }
         }
-        public List<Node> GetChildrent(Node parent)
+        public List<Node> GetChildren(Node parent)
         {
             List<Node> children = new List<Node>();
             if (parent is ActionNode)
@@ -94,8 +103,38 @@ namespace BehaviourTreeAI
                 {
                     children.Add(dn.Child);
                 }
+            }else if(parent is RootNode rn)
+            {
+                if (rn.Child != null)
+                {
+                    children.Add(rn.Child);
+                }
             }
             return children;
+        }
+        void Traverse(Node root, List<Node> treeNode)
+        {
+            if (root)
+            {
+                treeNode.Add(root);
+                List<Node> children = GetChildren(root);
+                foreach (Node c in children)
+                {
+                    Traverse(c, treeNode);
+                }
+            }
+        }
+        public BehaviourTree Clone()
+        {
+            BehaviourTree tree = Instantiate(this);
+            tree.RootNode = tree.RootNode.Clone();
+
+#if UNITY_EDITOR
+            tree.TreeNodes = new List<Node>();
+            Traverse(tree.RootNode, tree.TreeNodes);
+#endif
+
+            return tree;
         }
     }
 }

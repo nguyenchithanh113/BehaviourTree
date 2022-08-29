@@ -21,6 +21,11 @@ namespace BehaviourTreeAI
             CreateInputPort();
             CreateOutPort();
         }
+        public void SetGraphPosition(Vector2 pos)
+        {
+            style.left = pos.x;
+            style.top = pos.y;
+        }
         public override void SetPosition(Rect newPos)
         {
             base.SetPosition(newPos);
@@ -39,6 +44,9 @@ namespace BehaviourTreeAI
             }else if(Node is CompositeNode)
             {
                 input = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(bool));
+            }else if(Node is RootNode)
+            {
+
             }
             if (input != null)
             {
@@ -61,6 +69,9 @@ namespace BehaviourTreeAI
             else if (Node is CompositeNode)
             {
                 output = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(bool));
+            }else if(Node is RootNode)
+            {
+                output = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Single, typeof(bool));
             }
             if (output != null)
             {

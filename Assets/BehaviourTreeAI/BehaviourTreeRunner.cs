@@ -7,6 +7,10 @@ namespace BehaviourTreeAI
     public class BehaviourTreeRunner : MonoBehaviour
     {
         [SerializeField] BehaviourTree behaviourTree;
+        private void Awake()
+        {
+            behaviourTree = behaviourTree.Clone();
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -54,7 +58,11 @@ namespace BehaviourTreeAI
         // Update is called once per frame
         void Update()
         {
-            //behaviourTree.Update();
+            behaviourTree.Update();
+        }
+        public BehaviourTree GetTree()
+        {
+            return behaviourTree;
         }
     }
 }

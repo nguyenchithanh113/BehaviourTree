@@ -62,14 +62,21 @@ namespace BehaviourTreeAI
         }
         private void OnSelectionChange()
         {
-            Debug.Log("SelectionChange");
+            //Debug.Log("SelectionChange");
             //GameObject behaviourTreeObj = Selection.activeObject as be;
             BehaviourTree behaviourTree = Selection.activeObject as BehaviourTree;
 
-            Debug.Log(behaviourTree);
+            //Debug.Log(behaviourTree);
             if (behaviourTree)
             {
                 treeView.PopulateView(behaviourTree);
+            }
+
+            BehaviourTree behaviourTreeInGame = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>().GetTree();
+            if (behaviourTreeInGame)
+            {
+                treeView.PopulateView(behaviourTreeInGame);
+
             }
         }
         private void OnDestroy()
