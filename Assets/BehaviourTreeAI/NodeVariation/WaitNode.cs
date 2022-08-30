@@ -8,6 +8,7 @@ namespace BehaviourTreeAI
     {
         public float Duration = 1;
         float _startTime;
+
         protected override void OnStart()
         {
             _startTime = Time.time;

@@ -124,11 +124,26 @@ namespace BehaviourTreeAI
                 }
             }
         }
-        public BehaviourTree Clone()
+        void SetDataForBrainInteractor(Node root, AgentAI agentAI)
+        {
+            if (root)
+            {
+                if(root is IBrainInteractor bi)
+                {
+                    bi.SetAgentBrain(agentAI);
+                }
+                List<Node> children = GetChildren(root);
+                foreach (Node c in children)
+                {
+                    SetDataForBrainInteractor(c,agentAI);
+                }
+            }
+        }
+        public BehaviourTree Clone(AgentAI agentBrain)
         {
             BehaviourTree tree = Instantiate(this);
             tree.RootNode = tree.RootNode.Clone();
-
+            SetDataForBrainInteractor(tree.RootNode, agentBrain);
 #if UNITY_EDITOR
             tree.TreeNodes = new List<Node>();
             Traverse(tree.RootNode, tree.TreeNodes);
