@@ -17,26 +17,26 @@ namespace BehaviourTreeAI
 
         }
 
-        protected override State OnUpdate()
+        protected override NodeState OnUpdate()
         {
             foreach(Node child in Children)
             {
                 
                 switch (child.Update())
                 {
-                    case State.Success:
-                        return State.Success;
-                    case State.Failure:
+                    case NodeState.Success:
+                        return NodeState.Success;
+                    case NodeState.Failure:
                         continue;
                         break;
-                    case State.Running:
-                        return State.Running;
+                    case NodeState.Running:
+                        return NodeState.Running;
                     default:
-                        return State.Running;
+                        return NodeState.Running;
                 }
             }
             
-            return State.Failure;
+            return NodeState.Failure;
         }
     }
 }

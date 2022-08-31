@@ -19,10 +19,16 @@ namespace BehaviourTreeAI
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
             behaviourTree.Update();
         }
+#if NodeDebugger && UNITY_EDITOR
+        protected virtual void LateUpdate()
+        {
+            //behaviourTree.ClearExecutedList();
+        }
+#endif
         public BehaviourTree GetTree()
         {
             return behaviourTree;

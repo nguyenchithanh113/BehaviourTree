@@ -18,10 +18,10 @@ namespace BehaviourTreeAI
             Debug.Log($"OnStop {Message}");
         }
 
-        protected override State OnUpdate()
+        protected override NodeState OnUpdate()
         {
             Debug.Log($"OnUpdate {Message}");
-            return State.Success;
+            return NodeState.Success;
         }
     }
 }

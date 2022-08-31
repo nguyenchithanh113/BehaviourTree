@@ -1,0 +1,68 @@
+#node-border {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgb(63, 63, 63);
+}
+
+#input {
+    align-items: center;
+}
+
+#output {
+    align-items: center;
+}
+
+.running > #node-border {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-color: rgb(255, 251, 143);
+    border-right-color: rgb(255, 251, 143);
+    border-top-color: rgb(255, 251, 143);
+    border-bottom-color: rgb(255, 251, 143);
+}
+
+.failure > #node-border {
+    border-left-color: rgb(250, 82, 48);
+    border-right-color: rgb(250, 82, 48);
+    border-top-color: rgb(250, 82, 48);
+    border-bottom-color: rgb(250, 82, 48);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.success > #node-border {
+    border-left-color: rgb(44, 217, 57);
+    border-right-color: rgb(44, 217, 57);
+    border-top-color: rgb(44, 217, 57);
+    border-bottom-color: rgb(44, 217, 57);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.executed > #node-border {
+    background-color: rgba(91, 199, 200, 0.66);
+}

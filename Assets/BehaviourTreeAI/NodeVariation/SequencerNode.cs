@@ -17,23 +17,23 @@ namespace BehaviourTreeAI
             
         }
 
-        protected override State OnUpdate()
+        protected override NodeState OnUpdate()
         {
             Node currentNode = Children[_nodeCount];
             currentNode.Update();
-            switch (currentNode.NodeState)
+            switch (currentNode.State)
             {
-                case State.Success:
+                case NodeState.Success:
                     _nodeCount++;
                     break;
-                case State.Failure:
-                    return State.Failure;
-                case State.Running:
-                    return State.Running;
+                case NodeState.Failure:
+                    return NodeState.Failure;
+                case NodeState.Running:
+                    return NodeState.Running;
                 default:
-                    return State.Running;
+                    return NodeState.Running;
             }
-            return _nodeCount == Children.Count ? State.Success : State.Running;
+            return _nodeCount == Children.Count ? NodeState.Success : NodeState.Running;
         }
     }
 }

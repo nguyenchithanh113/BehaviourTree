@@ -17,7 +17,7 @@ namespace BehaviourTreeAI
 
         }
 
-        protected override State OnUpdate()
+        protected override NodeState OnUpdate()
         {
             return Child.Update();
         }

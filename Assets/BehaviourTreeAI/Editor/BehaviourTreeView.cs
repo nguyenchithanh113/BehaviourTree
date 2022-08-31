@@ -31,6 +31,7 @@ namespace BehaviourTreeAI
         
         internal void PopulateView(BehaviourTree behaviourTree)
         {
+            
             _behaviourTree = behaviourTree;
             viewTransform.position = _behaviourTree.GraphPosition;
             //Debug.Log(transform.position);
@@ -51,7 +52,7 @@ namespace BehaviourTreeAI
 
             behaviourTree.TreeNodes.ForEach((currentNode) =>
             {
-                List<Node> childNode = behaviourTree.GetChildren(currentNode);
+                List<Node> childNode = BehaviourTree.GetChildren(currentNode);
                 NodeView parentView = FindNodeView(currentNode);
                 foreach (Node child in childNode)
                 {
@@ -91,7 +92,7 @@ namespace BehaviourTreeAI
                         NodeView parentNode = edge.output.node as NodeView;
                         NodeView childNode = edge.input.node as NodeView;
                         _behaviourTree.AddChild(parentNode.Node, childNode.Node);
-                        OnAddChild(parentNode.Node);
+                        //OnAddChild(parentNode.Node);
                         EditorUtility.SetDirty(_behaviourTree);
                     }
                 });
@@ -102,7 +103,7 @@ namespace BehaviourTreeAI
         {
             if(parent is SequencerNode pr)
             {
-                List<Node> children = _behaviourTree.GetChildren(pr);
+                List<Node> children = BehaviourTree.GetChildren(pr);
                 if(children.Count > 1)
                 {
                     for(int i = 1; i < children.Count; i++)
@@ -131,6 +132,31 @@ namespace BehaviourTreeAI
         {
             NodeView nodeView = new NodeView(node);
             AddElement(nodeView);
+        }
+        public void UpdateNodeStatus()
+        {
+            nodes.ForEach((n) =>
+            {
+                if(n is NodeView nv)
+                {
+                    nv.UpdateStatus();
+                }
+            });
+            nodes.ForEach((n) =>
+            {
+                if (n is NodeView nv)
+                {
+                    nv.RemoveFromClassList("executed");
+                }
+            });
+            _behaviourTree.ExecutedNodes.ForEach((n) =>
+            {
+                NodeView nodeView = FindNodeView(n);
+                if (nodeView!=null)
+                {
+                    nodeView.AddToClassList("executed");
+                }
+            });
         }
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {

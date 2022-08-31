@@ -10,23 +10,31 @@ namespace BehaviourTreeAI
     {
         public Node RootNode;
 
-        Node.State _treeState = Node.State.Running;
+        Node.NodeState _treeState = Node.NodeState.Running;
 
 #if UNITY_EDITOR
         public List<Node> TreeNodes = new List<Node>();
+        [System.NonSerialized] public List<Node> ExecutedNodes = new List<Node>();
 #endif
 
         public Vector2 GraphPosition;
 
         // Update is called once per frame
-        public Node.State Update()
+        public Node.NodeState Update()
         {
-            if(_treeState == Node.State.Running)
+            if(_treeState == Node.NodeState.Running)
             {
+#if NodeDebugger && UNITY_EDITOR
+                if (CheckSelf())
+                {
+                    ClearExecutedList();
+                }
+#endif
                 _treeState = RootNode.Update();
             }
             return _treeState;
         }
+#if UNITY_EDITOR
         public Node CreateNode(System.Type type)
         {
             Node node = ScriptableObject.CreateInstance(type) as Node;
@@ -86,7 +94,38 @@ namespace BehaviourTreeAI
                 rn.Child = null;
             }
         }
-        public List<Node> GetChildren(Node parent)
+        public void AddToExcutedList(Node node)
+        {
+            if (!ExecutedNodes.Contains(node) && CheckSelf())
+            {
+                ExecutedNodes.Add(node);
+
+            }
+        }
+        bool CheckSelf()
+        {
+            GameObject obj = Selection.activeGameObject as GameObject;
+            BehaviourTree current = null;
+            if (obj)
+            {
+                current = obj.GetComponent<BehaviourTreeRunner>().GetTree();
+            }
+            if(current!=null && current == this)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void ClearExecutedList()
+        {
+            ExecutedNodes.Clear();
+        }
+
+#endif
+        public static List<Node> GetChildren(Node parent)
         {
             List<Node> children = new List<Node>();
             if (parent is ActionNode)
@@ -103,7 +142,8 @@ namespace BehaviourTreeAI
                 {
                     children.Add(dn.Child);
                 }
-            }else if(parent is RootNode rn)
+            }
+            else if (parent is RootNode rn)
             {
                 if (rn.Child != null)
                 {
@@ -112,15 +152,15 @@ namespace BehaviourTreeAI
             }
             return children;
         }
-        void Traverse(Node root, List<Node> treeNode)
+        public static void Traverse(Node root, System.Action<Node> action)
         {
             if (root)
             {
-                treeNode.Add(root);
+                action.Invoke(root);
                 List<Node> children = GetChildren(root);
                 foreach (Node c in children)
                 {
-                    Traverse(c, treeNode);
+                    Traverse(c, action);
                 }
             }
         }
@@ -146,7 +186,10 @@ namespace BehaviourTreeAI
             SetDataForBrainInteractor(tree.RootNode, agentBrain);
 #if UNITY_EDITOR
             tree.TreeNodes = new List<Node>();
-            Traverse(tree.RootNode, tree.TreeNodes);
+            Traverse(tree.RootNode, (n)=> {
+                tree.TreeNodes.Add(n);
+                n.CurrentTree = tree;
+            });
 #endif
 
             return tree;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace BehaviourTreeAI
 {
@@ -11,7 +12,7 @@ namespace BehaviourTreeAI
         public Port InputPort;
         public Port OutputPort;
 
-        public NodeView(Node node)
+        public NodeView(Node node) : base("Assets/BehaviourTreeAI/Editor/NodeView.uxml")
         {
             Node = node;
             this.viewDataKey = Node.Guid;
@@ -51,7 +52,8 @@ namespace BehaviourTreeAI
             if (input != null)
             {
                 input.portName = "";
-                inputContainer.Add(input);
+                input.style.flexDirection = FlexDirection.Column;
+                inputContainer.Add(input); 
                 InputPort = input;
             }
         }
@@ -75,9 +77,34 @@ namespace BehaviourTreeAI
             }
             if (output != null)
             {
-                output.portName = "Child";
+                output.portName = "";
+                output.style.flexDirection = FlexDirection.ColumnReverse;
                 outputContainer.Add(output);
                 OutputPort = output;
+            }
+        }
+        public void UpdateStatus()
+        {
+            RemoveFromClassList("running");
+            RemoveFromClassList("failure");
+            RemoveFromClassList("success");
+            if (Application.isPlaying)
+            {
+                switch (Node.State)
+                {
+                    case Node.NodeState.Running:
+                        if (Node.IsStart)
+                        {
+                            AddToClassList("running");
+                        }
+                        break;
+                    case Node.NodeState.Failure:
+                        AddToClassList("failure");
+                        break;
+                    case Node.NodeState.Success:
+                        AddToClassList("success");
+                        break;
+                }
             }
         }
     }

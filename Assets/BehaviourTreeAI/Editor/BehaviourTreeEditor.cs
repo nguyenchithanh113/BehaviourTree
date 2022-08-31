@@ -13,6 +13,8 @@ namespace BehaviourTreeAI
 
         BehaviourTree _behaviourTree;
 
+        public static BehaviourTree CurrentTree;
+
         //[MenuItem("Window/BehaviourTreeEditor/Editor")]
         //public static void OpenWindow()
         //{
@@ -36,6 +38,7 @@ namespace BehaviourTreeAI
             wnd.titleContent = new GUIContent("BehaviourTreeEditor");
 
             wnd._behaviourTree = behaviourTree;
+            BehaviourTreeAI.BehaviourTreeUltility.CurrentTree = behaviourTree;
 
             if (behaviourTree)
             {
@@ -72,16 +75,22 @@ namespace BehaviourTreeAI
                 treeView.PopulateView(behaviourTree);
             }
 
-            BehaviourTree behaviourTreeInGame = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>().GetTree();
+            BehaviourTree behaviourTreeInGame = Selection.activeGameObject?.GetComponent<BehaviourTreeRunner>().GetTree();
             if (behaviourTreeInGame)
             {
                 treeView.PopulateView(behaviourTreeInGame);
 
             }
         }
+        private void OnInspectorUpdate()
+        {
+            treeView?.UpdateNodeStatus();
+        }
         private void OnDestroy()
         {
             //Debug.Log(treeView.viewTransform.position);
+            BehaviourTreeAI.BehaviourTreeUltility.CurrentTree = null;
+            CurrentTree = null;
             _behaviourTree.GraphPosition = treeView.viewTransform.position;
         }
 

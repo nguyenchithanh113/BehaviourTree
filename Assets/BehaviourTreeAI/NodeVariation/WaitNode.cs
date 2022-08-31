@@ -19,13 +19,13 @@ namespace BehaviourTreeAI
 
         }
 
-        protected override State OnUpdate()
+        protected override NodeState OnUpdate()
         {
             if(Time.time - _startTime >= Duration)
             {
-                return State.Success;
+                return NodeState.Success;
             }
-            return State.Running;
+            return NodeState.Running;
         }
     }
 }

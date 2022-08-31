@@ -325,9 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becb2a43c2ef1b44aa0a6ef3ee74c64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isStart: 0
-  _nodeState: 0
-  Message: 
 --- !u!4 &1055869384
 Transform:
   m_ObjectHideFlags: 0
@@ -372,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d39a087114e7ab499dce739b8bbbc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourTree: {fileID: 11400000, guid: d9c9bd9bc8bf7fe4e9f16d2e2f2d7234, type: 2}
+  behaviourTree: {fileID: 11400000, guid: a1b409f4809a2a04a85972a11fb76438, type: 2}
   agentAI: {fileID: 1277195971}
 --- !u!4 &1277195970
 Transform:

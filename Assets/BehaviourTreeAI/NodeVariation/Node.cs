@@ -6,7 +6,7 @@ namespace BehaviourTreeAI
 {
     public abstract class Node : ScriptableObject
     {
-        public enum State
+        public enum NodeState
         {
             Running,
             Success,
@@ -17,39 +17,46 @@ namespace BehaviourTreeAI
 
         public Vector2 GraphPosition;
 
-        State _nodeState = State.Running;
+        public NodeState State = NodeState.Running;
 
-        bool _isStart = false;
+        public bool IsStart = false;
 
-        public State NodeState => _nodeState;
+#if UNITY_EDITOR
+        [HideInInspector] public BehaviourTree CurrentTree;
+#endif
 
-        public State Update()
+        public NodeState Update()
         {
-            if (!_isStart)
+            if (!IsStart)
             {
                 OnStart();
-                _isStart = true;
+                IsStart = true;
             }
+#if NodeDebugger && UNITY_EDITOR
+            CurrentTree.AddToExcutedList(this);
+#endif
+            State = OnUpdate();
 
-            _nodeState = OnUpdate();
 
-            if(_nodeState == State.Failure || _nodeState == State.Success)
+
+            if (State != NodeState.Running)
             {
                 OnStop();
-                _isStart = false;
+                IsStart = false;
             }
 
-            return _nodeState;
+            return State;
         }
         protected abstract void OnStart();
 
         protected abstract void OnStop();
 
-        protected abstract State OnUpdate();
+        protected abstract NodeState OnUpdate();
 
         public virtual Node Clone()
         {
             return Instantiate(this);
         }
+        
     }
 }
