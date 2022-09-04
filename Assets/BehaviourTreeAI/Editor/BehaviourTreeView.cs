@@ -98,6 +98,26 @@ namespace BehaviourTreeAI
                     }
                 });
             }
+            if (graphViewChange.movedElements != null)
+            {
+                graphViewChange.movedElements.ForEach((node) =>
+                {
+                    if(node is NodeView nv)
+                    {
+                        if (nv.InputPort != null && nv.InputPort.connections?.Count() > 0)
+                        {
+                            Edge edge = nv.InputPort.connections.First();
+                            if (edge != null && edge.output.node is NodeView parent)
+                            {
+                                if (parent.Node is CompositeNode)
+                                {
+                                    parent.SortChildren();
+                                }
+                            }
+                        }
+                    }
+                });
+            }
             return graphViewChange;
         }
         void OnAddChild(Node parent)

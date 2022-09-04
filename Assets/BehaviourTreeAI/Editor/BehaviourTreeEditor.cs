@@ -22,15 +22,15 @@ namespace BehaviourTreeAI
         //    wnd.titleContent = new GUIContent("BehaviourTreeEditor");
         //}
 
-        [MenuItem("Window/BehaviourTreeEditor/Create New Tree")]
-        public static void CreateNewTree()
-        {
-            EditorConfig config = AssetDatabase.LoadAssetAtPath<EditorConfig>("Assets/BehaviourTreeAI/EditorConfig.asset");
-            GameObject _treeObj = new GameObject("NewTree");
-            GameObject _treeNodes = new GameObject("HierachyNode");
-            _treeNodes.transform.SetParent(_treeObj.transform);
-            PrefabUtility.SaveAsPrefabAsset(_treeObj,config.CreateAssetPath + _treeObj.name + ".prefab");
-        }
+        //[MenuItem("Window/BehaviourTreeEditor/Create New Tree")]
+        //public static void CreateNewTree()
+        //{
+        //    EditorConfig config = AssetDatabase.LoadAssetAtPath<EditorConfig>("Assets/BehaviourTreeAI/EditorConfig.asset");
+        //    GameObject _treeObj = new GameObject("NewTree");
+        //    GameObject _treeNodes = new GameObject("HierachyNode");
+        //    _treeNodes.transform.SetParent(_treeObj.transform);
+        //    PrefabUtility.SaveAsPrefabAsset(_treeObj,config.CreateAssetPath + _treeObj.name + ".prefab");
+        //}
 
         public static void ShowWindow(BehaviourTree behaviourTree)
         {

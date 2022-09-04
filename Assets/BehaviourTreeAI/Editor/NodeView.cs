@@ -107,5 +107,16 @@ namespace BehaviourTreeAI
                 }
             }
         }
+        public void SortChildren()
+        {
+            if(Node is CompositeNode cn)
+            {
+                cn.Children.Sort(SortByHorizontalPosition);
+            }
+        }
+        int SortByHorizontalPosition(Node left, Node right)
+        {
+            return left.GraphPosition.x < right.GraphPosition.x ? -1 : 1;
+        }
     }
 }

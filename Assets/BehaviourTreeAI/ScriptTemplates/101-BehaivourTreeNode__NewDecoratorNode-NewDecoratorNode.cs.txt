@@ -15,7 +15,7 @@ public class #SCRIPTNAME# : DecoratorNode
         #NOTRIM#
     }
 
-    protected override State OnUpdate()
+    protected override NodeState OnUpdate()
     {
         throw new System.NotImplementedException();
     }
