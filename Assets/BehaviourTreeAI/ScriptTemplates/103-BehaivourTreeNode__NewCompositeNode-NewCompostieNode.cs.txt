@@ -1,0 +1,22 @@
+using BehaviourTreeAI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : ConditionNode
+{
+    protected override void OnStart()
+    {
+        #NOTRIM#
+    }
+
+    protected override void OnStop()
+    {
+        #NOTRIM#
+    }
+
+    protected override State OnUpdate()
+    {
+        throw new System.NotImplementedException();
+    }
+}

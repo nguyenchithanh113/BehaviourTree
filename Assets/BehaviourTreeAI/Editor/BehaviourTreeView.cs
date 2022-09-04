@@ -40,7 +40,7 @@ namespace BehaviourTreeAI
             List<GraphElement> lstGraphElements = new List<GraphElement>();
             graphElements.ForEach((elem) => { lstGraphElements.Add(elem); });
             DeleteElements(lstGraphElements);
-            graphViewChanged += OnGraphViewChange;
+            
 
             if (behaviourTree.RootNode == null)
             {
@@ -61,6 +61,7 @@ namespace BehaviourTreeAI
                     AddElement(edge);
                 }
             });
+            graphViewChanged += OnGraphViewChange;
         }
         private GraphViewChange OnGraphViewChange(GraphViewChange graphViewChange)
         {

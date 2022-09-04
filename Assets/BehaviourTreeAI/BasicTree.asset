@@ -13,19 +13,15 @@ MonoBehaviour:
   m_Name: SequencerNode
   m_EditorClassIdentifier: 
   Guid: 245ad1eee00c74842bb2f512f764f6e5
-  GraphPosition: {x: 136, y: 18}
+  GraphPosition: {x: 162, y: -1}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
   Children:
-  - {fileID: 3542432392816502836}
   - {fileID: -7661878542744377806}
   - {fileID: -7940493474808251291}
   - {fileID: 7526820220298125839}
   - {fileID: 3542432392816502836}
-  - {fileID: -7661878542744377806}
-  - {fileID: -7940493474808251291}
-  - {fileID: 7526820220298125839}
 --- !u!114 &-9113414060141238064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,7 +35,7 @@ MonoBehaviour:
   m_Name: SequencerNode
   m_EditorClassIdentifier: 
   Guid: 83afd5cafd100b74c99e66b1d3397bff
-  GraphPosition: {x: -72, y: 97}
+  GraphPosition: {x: -86.99999, y: 92.34998}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
@@ -95,7 +91,7 @@ MonoBehaviour:
   m_Name: WaitNode
   m_EditorClassIdentifier: 
   Guid: 4696f06ccd5eca14e885bb79eb5ba18e
-  GraphPosition: {x: 327, y: 155}
+  GraphPosition: {x: 316.30005, y: 152.34999}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
@@ -113,7 +109,7 @@ MonoBehaviour:
   m_Name: DebugLogNode
   m_EditorClassIdentifier: 
   Guid: f2a5becd0f84a354ea693b0b1d1a0afb
-  GraphPosition: {x: 214, y: 155}
+  GraphPosition: {x: 189.80003, y: 157.24998}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
@@ -179,8 +175,8 @@ MonoBehaviour:
   - {fileID: -7661878542744377806}
   - {fileID: -7940493474808251291}
   - {fileID: 7526820220298125839}
-  - {fileID: 1082655076820006722}
-  GraphPosition: {x: 292, y: 171}
+  - {fileID: 5247339729640496687}
+  GraphPosition: {x: 165.6, y: 220.8}
 --- !u!114 &166115399182607124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,32 +190,13 @@ MonoBehaviour:
   m_Name: SelectorNode
   m_EditorClassIdentifier: 
   Guid: 531b5cab133c0d8449d8d30ce55fea59
-  GraphPosition: {x: -34, y: -93}
+  GraphPosition: {x: 9.000028, y: -93.700005}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
   Children:
   - {fileID: -9150681327092869484}
-  - {fileID: -9150681327092869484}
-  - {fileID: 1082655076820006722}
---- !u!114 &1082655076820006722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 872a5a0bc0a96cf4db183a46ba16247d, type: 3}
-  m_Name: NewConditionNode
-  m_EditorClassIdentifier: 
-  Guid: 7950b6742bd9e9b4c8deb1fedf5a4f62
-  GraphPosition: {x: -161, y: -15}
-  State: 0
-  IsStart: 0
-  CurrentTree: {fileID: 0}
-  Child: {fileID: -9113414060141238064}
+  - {fileID: 5247339729640496687}
 --- !u!114 &3542432392816502836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,11 +210,29 @@ MonoBehaviour:
   m_Name: WaitNode
   m_EditorClassIdentifier: 
   Guid: cba1ec42098ec6447a3dacf1155cce8f
-  GraphPosition: {x: 126, y: 153.8}
+  GraphPosition: {x: 99.61497, y: 152.74248}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}
   Duration: 1
+--- !u!114 &5247339729640496687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872a5a0bc0a96cf4db183a46ba16247d, type: 3}
+  m_Name: NewConditionNode
+  m_EditorClassIdentifier: 
+  Guid: 9ce0d3b61174b2640b18cab967524802
+  GraphPosition: {x: -90.59999, y: 1.3999995}
+  State: 0
+  IsStart: 0
+  CurrentTree: {fileID: 0}
+  Child: {fileID: -9113414060141238064}
 --- !u!114 &7526820220298125839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +246,7 @@ MonoBehaviour:
   m_Name: DebugLogNode
   m_EditorClassIdentifier: 
   Guid: 7428a458dbebaa242af71621c9da030d
-  GraphPosition: {x: 409, y: 154}
+  GraphPosition: {x: 388.6, y: 156.00002}
   State: 0
   IsStart: 0
   CurrentTree: {fileID: 0}

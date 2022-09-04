@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d39a087114e7ab499dce739b8bbbc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourTree: {fileID: 11400000, guid: a1b409f4809a2a04a85972a11fb76438, type: 2}
+  behaviourTree: {fileID: 11400000, guid: d9c9bd9bc8bf7fe4e9f16d2e2f2d7234, type: 2}
   agentAI: {fileID: 1277195971}
 --- !u!4 &1277195970
 Transform:
